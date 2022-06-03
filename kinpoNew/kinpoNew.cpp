@@ -30,6 +30,43 @@ int main()
         cout << "File Was Not Opened!";
         return 0;
     }
+
+    //проверка что в файле только цифры
+    char str[200];
+    while (fin.getline(str, 200))
+    {
+        if (!check(str))
+        {
+            cout << "the parameters should be only numbers";
+            return 0;
+        }
+    }
+
+    fin.close();
+
+    fin.open(path);
+
+    //проверка на количество параметров
+    int number_of_parameters = 1;
+    int tmp;//переменная для считывания из файла
+    fin >> size;
+    while (!fin.eof())
+    {
+        fin >> tmp;
+        number_of_parameters++;
+    }
+
+    if (number_of_parameters != 2 * size + 3)
+    {
+        cout << "insufficient number of parameters";
+        return 0;
+    }
+
+
+    fin.close();
+
+    fin.open(path);
+
     fin >> size;
 
     fin >> pointX;
@@ -152,18 +189,7 @@ int main()
                 result = !result;
             j = i;
         }
-        //--------------------------------------------
-        /*bool result = false;
-        int j = size - 1;
-        for (int i = 0; i < size; i++)
-        {
-            if ((p.y[i] < pointY && p.y[j] >= pointY || p.y[j] < pointY && p.y[i] >= pointY) &&
-                (p.x[i] + (pointY - p.y[i]) / (p.y[j] - p.y[i]) * (p.x[j] - p.x[i]) < pointX))
-                result = !result;
-            j = i;
-        }
-        */
-        //-----------------------------------------------------------------------------------------
+       
         for (int i = 0; i < size; i++)
         {
             if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], pointX, pointY))
@@ -345,6 +371,16 @@ int ray_intersection_segment(double x1, double y1, double x2, double y2, double 
         //пересечений нет
         return 0;
     }
+}
+
+bool check(char str[])
+{
+    for (size_t i = 0; str[i]; ++i)
+    {
+        if (str[i] != ' ' && (str[i] < '0' || str[i] > '9'))
+            return false;
+    }
+    return true;
 }
 
 

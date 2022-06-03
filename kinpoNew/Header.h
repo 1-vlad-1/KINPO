@@ -8,6 +8,9 @@ bool intersect(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
 /*!Функция проверяет пересечения луча с коэффициентами k,b и отрезка (х1,y1)(x2,y2)
 */
 int ray_intersection_segment(double x1, double y1, double x2, double y2, double k, double b, double pointY, double pointX);
+/*!Функция для проверки того, что в строке только цифры
+*/
+bool check(char str[]);
 
 //структура хранящая координаты x,y точек
 struct point
