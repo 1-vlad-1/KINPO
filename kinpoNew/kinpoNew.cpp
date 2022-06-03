@@ -317,14 +317,24 @@ int ray_intersection_segment(double x1, double y1, double x2, double y2, double 
         //если точка пересечения лежит на отрезке
         if (xIntersect >= min(x1, x2) && xIntersect <= max(x1, x2) && yIntersect >= min(y1, y2) && yIntersect <= max(y1, y2))
         {
-            //если стороны лежат по одну сторону от луча
-            if (yIntersect >= pointY)
-                //пересечение есть
-                return 1;
-            //иначе
+            //если стороны многоугольника лежат по одну сторону от луча
+            if (k == 0)
+            {
+                if (xIntersect < pointX)
+                    return 1;
+                else
+                    return 0;
+            }
             else
-                //пересечений нет
-                return 0;
+            {
+                if (yIntersect >= pointY)
+                    //пересечение есть
+                    return 1;
+                //иначе
+                else
+                    //пересечений нет
+                    return 0;
+            }
         }
         //пересечений нет
         return 0;
@@ -349,8 +359,8 @@ int ray_intersection_segment(double x1, double y1, double x2, double y2, double 
         //если точка пересечения лежит на отрезке
         if (xIntersect >= min(x1, x2) && xIntersect <= max(x1, x2) && yIntersect >= min(y1, y2) && yIntersect <= max(y1, y2))
         {
-            //если стороны лежат по одну сторону от луча
-            if (y1 == y2)
+            //если стороны многоугольника лежат по одну сторону от луча
+            if (k == 0)
             {
                 if (xIntersect < pointX)
                     return 1;
@@ -367,6 +377,7 @@ int ray_intersection_segment(double x1, double y1, double x2, double y2, double 
                     //пересечений нет
                     return 0;
             }
+            
         }
         //пересечений нет
         return 0;
