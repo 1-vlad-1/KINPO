@@ -50,7 +50,7 @@ int main()
     int number_of_parameters = 1;
     int tmp;//переменная для считывания из файла
     fin >> size;
-    while (!fin.eof())
+    while (!fin.eof() && number_of_parameters < 2 * size + 4)
     {
         fin >> tmp;
         number_of_parameters++;
@@ -58,7 +58,7 @@ int main()
 
     if (number_of_parameters != 2 * size + 3)
     {
-        cout << "insufficient number of parameters";
+        cout << "incorrect number of parameters";
         return 0;
     }
 
@@ -296,7 +296,7 @@ bool intersect(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 
 }
 
-int ray_intersection_segment(double x1, double y1, double x2, double y2, double k, double b, double pointY, double pointX)
+bool ray_intersection_segment(double x1, double y1, double x2, double y2, double k, double b, double pointY, double pointX)
 {
     double k1;
     double b1;
