@@ -47,7 +47,7 @@ int main()
     fin.open(path);
 
     //проверка на количество параметров
-    int number_of_parameters = 1;
+    int number_of_parameters = 1;//количество параметров
     int tmp;//переменная для считывания из файла
     fin >> size;
     while (!fin.eof() && number_of_parameters < 2 * size + 4)
@@ -56,8 +56,10 @@ int main()
         number_of_parameters++;
     }
 
+    //если количество параметров не соответствует ожидаемым
     if (number_of_parameters != 2 * size + 3)
     {
+        //вывести ошибку
         cout << "incorrect number of parameters";
         return 0;
     }
@@ -150,10 +152,13 @@ int main()
         //вычислительная часть программы
         //--------------------------------------------
         double k[100];
+        //для всех точек
         for (int i = 0; i < size; i++)
         {
+            //если х координата искомой точки не совпадает с х координатой текущей точки
             if (pointX != p.x[i])
             {
+                //вычисляем угловой коэффициент для данной точки
                 k[i] = ((double)pointY - (double)p.y[i]) / ((double)pointX - (double)p.x[i]);
             }
             else
@@ -161,6 +166,7 @@ int main()
                 k[i] = 0;
             }
         }
+        //обнуляем повторяющиеся угловые коэффициенты
         for (int i = 0; i < size; i++)
         {
             for (int j = i + 1; j < size - i - 1; j++)
@@ -171,6 +177,7 @@ int main()
         }
 
         double angular_coefficient = 0;
+        //рассчитываем итоговый угловой коэффициент как среднее арифметическое угловых коэффициентов для соседних точек
         for (int i = 0; i < size - 1 && angular_coefficient == 0; i++)
         {
             if (k[i] != 0 && k[i + 1] != 0)
@@ -179,17 +186,22 @@ int main()
             }
         }
         double coeff_b = 0;
+        //вычисляем коэффициент b
         coeff_b = pointY - angular_coefficient * pointX;
 
         bool result = false;
         int j = size - 1;
+        //для всех отрезков
         for (int i = 0; i < size; i++)
         {
+            //проверяем пересекает ли луч отрезок
             if (ray_intersection_segment((double)p.x[j], (double)p.y[j], (double)p.x[i], (double)p.y[i], angular_coefficient, coeff_b, (double)pointY, (double)pointX))
+                //изменяем на противоположный ответ о принадлежности точки
                 result = !result;
             j = i;
         }
-       
+
+        //проверяем лежит ли искомая точка на стороне многоугольника
         for (int i = 0; i < size; i++)
         {
             if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], pointX, pointY))
@@ -386,11 +398,15 @@ bool ray_intersection_segment(double x1, double y1, double x2, double y2, double
 
 bool check(char str[])
 {
+    //для всех символов
     for (size_t i = 0; str[i]; ++i)
     {
+        //если символ не является цифрой
         if (str[i] != ' ' && (str[i] < '0' || str[i] > '9'))
+            //проверка провалена
             return false;
     }
+    //проверка успешна
     return true;
 }
 
