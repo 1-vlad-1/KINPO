@@ -82,138 +82,140 @@ int main()
     }
 
     fin.close();
-
+    bool result = false;
     try
     {
-        //условия верности введенных данных
-    //условие проверки количества точек
-        if (size < 3 || size > 100)
+        for (int m = 0; m < 20000000; m++)
         {
-            throw "Input data is not correct. Number of points out of range [3; 100]";
-        }
-        //условие проверки совпадений точек
-        for (int i = 0; i < size - 1; i++)
-        {
-            for (int j = i + 1; j <= size - 1; j++)
+            //условия верности введенных данных
+        //условие проверки количества точек
+            if (size < 3 || size > 100)
             {
-                if (p.x[i] == p.x[j] && p.y[i] == p.y[j])
+                throw "Input data is not correct. Number of points out of range [3; 100]";
+            }
+            //условие проверки совпадений точек
+            for (int i = 0; i < size - 1; i++)
+            {
+                for (int j = i + 1; j <= size - 1; j++)
                 {
-                    throw "Error: vertices of the polygon match";
-                }
-            }
-        }
-        //условия коректного ввода координат от нуля до тысячи
-        for (int i = 0; i < size; i++)
-        {
-            if (p.x[i] < 0 || p.x[i]>1000 || p.y[i] < 0 || p.y[i]>1000)
-            {
-                throw "Error: parameter is not included the range [0,1000]";
-            }
-        }
-        //условия вырождения в отрезок
-        for (int i = 0; i < size - 2; i++)
-        {
-            if (point_on_segment(p.x[i], p.y[i], p.x[i + 2], p.y[i + 2], p.x[i + 1], p.y[i + 1]))
-            {
-                throw "Error: points degenerate into segment";
-            }
-        }
-        for (int i = 0; i < size - 2; i++)
-        {
-            if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], p.x[i + 2], p.y[i + 2]))
-            {
-                throw "Error: points degenerate into segment";
-            }
-        }
-        if (point_on_segment(p.x[size - 1], p.y[size - 1], p.x[1], p.y[1], p.x[0], p.y[0]))
-        {
-            throw "Error: points degenerate into segment";
-        }
-        if (point_on_segment(p.x[size - 2], p.y[size - 2], p.x[0], p.y[0], p.x[size - 1], p.y[size - 1]))
-        {
-            throw "Error: points degenerate into segment";
-        }
-        //условие пересечения сторон
-        if (size >= 4)
-        {
-            for (int i = 0; i < size - 3; i++)
-            {
-                for (int j = i + 2; j < size - 1; j++)
-                {
-                    if (intersect(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], p.x[j], p.y[j], p.x[j + 1], p.y[j + 1]))
+                    if (p.x[i] == p.x[j] && p.y[i] == p.y[j])
                     {
-                        throw "Error: lines intersect";
+                        throw "Error: vertices of the polygon match";
                     }
                 }
             }
-        }
+            //условия коректного ввода координат от нуля до тысячи
+            for (int i = 0; i < size; i++)
+            {
+                if (p.x[i] < 0 || p.x[i]>1000 || p.y[i] < 0 || p.y[i]>1000)
+                {
+                    throw "Error: parameter is not included the range [0,1000]";
+                }
+            }
+            //условия вырождения в отрезок
+            for (int i = 0; i < size - 2; i++)
+            {
+                if (point_on_segment(p.x[i], p.y[i], p.x[i + 2], p.y[i + 2], p.x[i + 1], p.y[i + 1]))
+                {
+                    throw "Error: points degenerate into segment";
+                }
+            }
+            for (int i = 0; i < size - 2; i++)
+            {
+                if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], p.x[i + 2], p.y[i + 2]))
+                {
+                    throw "Error: points degenerate into segment";
+                }
+            }
+            if (point_on_segment(p.x[size - 1], p.y[size - 1], p.x[1], p.y[1], p.x[0], p.y[0]))
+            {
+                throw "Error: points degenerate into segment";
+            }
+            if (point_on_segment(p.x[size - 2], p.y[size - 2], p.x[0], p.y[0], p.x[size - 1], p.y[size - 1]))
+            {
+                throw "Error: points degenerate into segment";
+            }
+            //условие пересечения сторон
+            if (size >= 4)
+            {
+                for (int i = 0; i < size - 3; i++)
+                {
+                    for (int j = i + 2; j < size - 1; j++)
+                    {
+                        if (intersect(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], p.x[j], p.y[j], p.x[j + 1], p.y[j + 1]))
+                        {
+                            throw "Error: lines intersect";
+                        }
+                    }
+                }
+            }
 
 
-        //вычислительная часть программы
-        //--------------------------------------------
-        double k[100];
-        //для всех точек
-        for (int i = 0; i < size; i++)
-        {
-            //если х координата искомой точки не совпадает с х координатой текущей точки
-            if (pointX != p.x[i])
+            //вычислительная часть программы
+            //--------------------------------------------
+            double k[100];
+            //для всех точек
+            for (int i = 0; i < size; i++)
             {
-                //вычисляем угловой коэффициент для данной точки
-                k[i] = ((double)pointY - (double)p.y[i]) / ((double)pointX - (double)p.x[i]);
-            }
-            else
-            {
-                k[i] = 0;
-            }
-        }
-        //обнуляем повторяющиеся угловые коэффициенты
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = i + 1; j < size - i - 1; j++)
-            {
-                if (k[i] == k[j])
+                //если х координата искомой точки не совпадает с х координатой текущей точки
+                if (pointX != p.x[i])
+                {
+                    //вычисляем угловой коэффициент для данной точки
+                    k[i] = ((double)pointY - (double)p.y[i]) / ((double)pointX - (double)p.x[i]);
+                }
+                else
+                {
                     k[i] = 0;
+                }
             }
-        }
-
-        double angular_coefficient = 0;
-        //рассчитываем итоговый угловой коэффициент как среднее арифметическое угловых коэффициентов для соседних точек
-        for (int i = 0; i < size - 1 && angular_coefficient == 0; i++)
-        {
-            if (k[i] != 0 && k[i + 1] != 0)
+            //обнуляем повторяющиеся угловые коэффициенты
+            for (int i = 0; i < size; i++)
             {
-                angular_coefficient = ((double)k[i] + (double)k[i + 1]) / 2;
+                for (int j = i + 1; j < size - i - 1; j++)
+                {
+                    if (k[i] == k[j])
+                        k[i] = 0;
+                }
             }
-        }
-        double coeff_b = 0;
-        //вычисляем коэффициент b
-        coeff_b = pointY - angular_coefficient * pointX;
 
-        bool result = false;
-        int j = size - 1;
-        //для всех отрезков
-        for (int i = 0; i < size; i++)
-        {
-            //проверяем пересекает ли луч отрезок
-            if (ray_intersection_segment((double)p.x[j], (double)p.y[j], (double)p.x[i], (double)p.y[i], angular_coefficient, coeff_b, (double)pointY, (double)pointX))
-                //изменяем на противоположный ответ о принадлежности точки
-                result = !result;
-            j = i;
-        }
+            double angular_coefficient = 0;
+            //рассчитываем итоговый угловой коэффициент как среднее арифметическое угловых коэффициентов для соседних точек
+            for (int i = 0; i < size - 1 && angular_coefficient == 0; i++)
+            {
+                if (k[i] != 0 && k[i + 1] != 0)
+                {
+                    angular_coefficient = ((double)k[i] + (double)k[i + 1]) / 2;
+                }
+            }
+            double coeff_b = 0;
+            //вычисляем коэффициент b
+            coeff_b = pointY - angular_coefficient * pointX;
 
-        //проверяем лежит ли искомая точка на стороне многоугольника
-        for (int i = 0; i < size; i++)
-        {
-            if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], pointX, pointY))
+            bool result = false;
+            int j = size - 1;
+            //для всех отрезков
+            for (int i = 0; i < size; i++)
+            {
+                //проверяем пересекает ли луч отрезок
+                if (ray_intersection_segment((double)p.x[j], (double)p.y[j], (double)p.x[i], (double)p.y[i], angular_coefficient, coeff_b, (double)pointY, (double)pointX))
+                    //изменяем на противоположный ответ о принадлежности точки
+                    result = !result;
+                j = i;
+            }
+
+            //проверяем лежит ли искомая точка на стороне многоугольника
+            for (int i = 0; i < size; i++)
+            {
+                if (point_on_segment(p.x[i], p.y[i], p.x[i + 1], p.y[i + 1], pointX, pointY))
+                {
+                    result = true;
+                }
+            }
+            if (point_on_segment(p.x[0], p.y[0], p.x[size - 1], p.y[size - 1], pointX, pointY))
             {
                 result = true;
             }
         }
-        if (point_on_segment(p.x[0], p.y[0], p.x[size - 1], p.y[size - 1], pointX, pointY))
-        {
-            result = true;
-        }
-
         ofstream fout;
 
         fout.open("output.txt");

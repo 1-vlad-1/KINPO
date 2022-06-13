@@ -1,48 +1,54 @@
 #pragma once
-/*!функция проверяет лежит ли uскомая точка на отрезке (х1,y1)(x2,y2)
-* \param[in] x1 x-координата начала отрезка
-* \param[in] y1 y-координата начала отрезка
-* \param[in] x2 x-координата конца отрезка
-* \param[in] y2 y-координата конца отрезка
-* \param[in] x х-координата искомой точки
-* \param[in] y y-координата искомой точки
-* \return - истина, если точка лежит на отрезке и ложь, если точка не лежит на отрезке
+/*!
+* \mainpage Polygon
+* The program determines whether a point belongs to a polygon
+*/
+
+/*! the function checks whether the desired point lies on the segment (х1,y1)(x2,y2)
+* \param[in] x1 x-coordinate of the beginning of the segment
+* \param[in] y1 y-coordinate of the beginning of the segment
+* \param[in] x2 x-coordinate of the end of the segment
+* \param[in] y2 y-coordinate of the end of the segment
+* \param[in] x x-coordinate of the desired point
+* \param[in] y y-coordinate of the desired point
+* \return - true - if the point lies on the segment and false - if the point does not lie on the segment
 */
 bool point_on_segment(int x1, int y1, int x2, int y2, int x, int y);
 
-/*!функция проверяет пересекаются ли отрезки (x1,y1)(x2,y2) u (x3,y3)(x4,y4)
-* \param[in] x1 x-координата начала первого отрезка
-* \param[in] y1 y-координата начала первого отрезка
-* \param[in] x2 x-координата конца первого отрезка
-* \param[in] y2 y-координата конца первого отрезка
-* \param[in] x3 x-координата начала второго отрезка
-* \param[in] y3 y-координата начала второго отрезка
-* \param[in] x4 x-координата конца второго отрезка
-* \param[in] y4 y-координата конца второго отрезка
-* \return - истина если отрезки перескаются и ложь, если не пересекаются
+/*! the function checks whether the segments intersect (x1,y1)(x2,y2) and (x3,y3)(x4,y4)
+* \param[in] x1 x-coordinate of the beginning of the first segment
+* \param[in] y1 y-coordinate of the beginning of the first segment
+* \param[in] x2 x-coordinate of the end of the first segment
+* \param[in] y2 y-coordinate of the end of the first segment
+* \param[in] x3 x-coordinate of the beginning of the second segment
+* \param[in] y3 y-coordinate of the beginning of the second segment
+* \param[in] x4 x-coordinate of the end of the second segment
+* \param[in] y4 y-coordinate of the end of the second segment
+* \return - true - if the segments intersect and false - if they do not intersect
 */
 bool intersect(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
 
-/*!Функция проверяет пересечения луча с коэффициентами k,b и отрезка (х1,y1)(x2,y2)
-* \param[in] x1 x-координата начала отрезка
-* \param[in] y1 y-координата начала отрезка
-* \param[in] x2 x-координата конца отрезка
-* \param[in] y2 y-координата конца отрезка
-* \param[in] k - угловой коэффициент луча
-* \param[in] b - коэффициент b луча
-* \param[in] pointY - y-координата точки из которой испускаем луч
-* \param[in] pointX - x-координата точки из которой испускаем луч
-* \return - истина если есть пересечение и ложь если нет пересечения
+/*! The function checks the intersections of the ray with the coefficients k,b and the segment (x1,y1)(x2,y2)
+* \param[in] x1 x-coordinate of the beginning of the segment
+* \param[in] y1 y-coordinate of the beginning of the segment
+* \param[in] x2 x-coordinate of the end of the segment
+* \param[in] y2 y-coordinate of the end of the segment
+* \param[in] k - angular coefficient of the ray
+* \param[in] b - ray coefficient b
+* \param[in] pointY - y-coordinate the point from which we emit the ray
+* \param[in] pointX - x-coordinate the point from which we emit the ray
+* \return - true - if there is an intersection and false - if there is no intersection
 */
 bool ray_intersection_segment(double x1, double y1, double x2, double y2, double k, double b, double pointY, double pointX);
 
-/*!Функция для проверки того, что в строке только цифры
-* \param[in] str[] - строка в которой проверяем символы
-* \return - истина если в строке только цифры и ложь, если в строке не только цифры
+/*! A function to check that there are only numbers in a string
+* \param[in] str[] - the string in which we check the characters
+* \return - true - if there are only numbers in the string and false - if there are not only numbers in the string
 */
 bool check(char str[]);
 
-/*!структура хранящая координаты x,y точек
+/*!
+* structure storing the coordinates of x,y points
 */
 struct point
 {
