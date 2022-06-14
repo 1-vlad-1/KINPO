@@ -10,11 +10,15 @@ int main()
 {
     //инициализация и ввод данных
     setlocale(LC_ALL, "rus");
+    //количество точек многоугольника
     int size = 0;
     point p;
+    //х-координата искомой точки
     int pointX = 0;
+    //y-координата искомой точки
     int pointY = 0;
 
+    //название файла
     string path;
     cin >> noskipws >> path;
     if (path.empty())
@@ -85,7 +89,7 @@ int main()
     bool result = false;
     try
     {
-        for (int m = 0; m < 20000000; m++)
+        for (long int m = 0; m < 10000000; m++)
         {
             //условия верности введенных данных
         //условие проверки количества точек
@@ -247,12 +251,12 @@ int main()
     }
 }
 
-bool point_on_segment(int x1, int y1, int x2, int y2, int x, int y)
+bool point_on_segment(double x1, double y1, double x2, double y2, double x, double y)
 {
     double k, b;
 
     //проверяем вертилкальный ли отрезок 
-    if ((double)x2 == (double)x1)
+    if (x2 == x1)
     {
         //возвращаем значение в соответствии с расположением искомой точки
         return (x == x1 && y >= min(y1, y2) && y <= max(y1, y2));
@@ -260,12 +264,12 @@ bool point_on_segment(int x1, int y1, int x2, int y2, int x, int y)
 
     //уравнение прямой y=kx+b
     //определяем коэффициент k
-    k = ((double)y2 - (double)y1) / ((double)x2 - (double)x1);
+    k = (y2 - y1) / (x2 - x1);
     //определяем коэффициент b
-    b = (double)y1 - k * (double)x1;
+    b = y1 - k * x1;
 
     //если искомая точка лежит на прямой
-    if ((double)y == (double)x * k + b)
+    if (y == x * k + b)
     {
         //если искомая точка лежит на отрезке
         if (y >= min(y1, y2) && y <= max(y1, y2) && x >= min(x1, x2) && x <= max(x1, x2))

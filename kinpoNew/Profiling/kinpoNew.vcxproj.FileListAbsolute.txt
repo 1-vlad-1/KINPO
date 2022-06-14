@@ -1,0 +1,2 @@
+C:\Users\Владислав\source\repos\kinpoNew\Profiling\kinpoNew.exe.lastcodeanalysissucceeded
+C:\Users\Владислав\source\repos\kinpoNew\kinpoNew\Profiling\NativeCodeAnalysis.read.1.tlog

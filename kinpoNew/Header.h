@@ -13,7 +13,8 @@
 * \param[in] y y-coordinate of the desired point
 * \return - true - if the point lies on the segment and false - if the point does not lie on the segment
 */
-bool point_on_segment(int x1, int y1, int x2, int y2, int x, int y);
+bool point_on_segment(double x1, double y1, double x2, double y2, double x, double y);
+
 
 /*! the function checks whether the segments intersect (x1,y1)(x2,y2) and (x3,y3)(x4,y4)
 * \param[in] x1 x-coordinate of the beginning of the first segment
